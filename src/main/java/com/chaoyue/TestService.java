@@ -1,46 +1,43 @@
 package com.chaoyue;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TestService {
+
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private TestMapper testMapper;
 
     public List<TestDto> getAll() {
-        Criteria criteria = new Criteria();
-        Query query = new Query(criteria);
-        return mongoTemplate.find(query, TestDto.class);
+        return testMapper.getList(null);
     }
 
     public TestDto getById(String id) {
-        return mongoTemplate.findById(id, TestDto.class);
+        return testMapper.getById(id);
     }
 
     public void add(TestDto testDto) {
-        mongoTemplate.insert(testDto, "test_coll");
+        testMapper.add(testDto);
     }
 
     public void update(TestDto testDto) {
-        Criteria criteria = new Criteria();
-        criteria.andOperator(Criteria.where("name").is(testDto.getName()));
-        Query query = new Query(criteria);
-        Update update = new Update();
-        update.set("age", testDto.getAge());
-        mongoTemplate.updateMulti(query, update, TestDto.class);
+//        Criteria criteria = new Criteria();
+//        criteria.andOperator(Criteria.where("name").is(testDto.getName()));
+//        Query query = new Query(criteria);
+//        Update update = new Update();
+//        update.set("age", testDto.getAge());
+//        mongoTemplate.updateMulti(query, update, TestDto.class);
+        testMapper.update(testDto);
     }
 
-    public void delete() {
-        Criteria criteria = new Criteria();
-        criteria.andOperator(Criteria.where("name").is("chaoyue2"));
-        Query query = new Query(criteria);
-        mongoTemplate.remove(query, "test_coll");
+    public void deleteById(String id) {
+//        Criteria criteria = new Criteria();
+//        criteria.and("_id").is(id);
+//        Query query = new Query(criteria);
+//        mongoTemplate.remove(query, TestDto.class);
+        testMapper.deleteById(id);
     }
 }

@@ -29,18 +29,21 @@ public class MongoQueryTest extends AbstractSpringContextTest {
         testDto.setName("chaoyue");
         testDto.setAge(18);
         testService.update(testDto);
+        getAllTest();
     }
 
     @Test
     public void addTest() {
         TestDto testDto = new TestDto();
-        testDto.setName("chaoyue2");
-        testDto.setAge(20);
+        testDto.setName("chaoyue");
+        testDto.setAge(15);
+        testDto.setMailAddress("chaoyue@test.com");
         testService.add(testDto);
     }
 
     @Test
     public void deleteTest() {
-        testService.delete();
+        String id = "5b50393cbdd62c9ed416e7b2";
+        testService.deleteById(id);
     }
 }
